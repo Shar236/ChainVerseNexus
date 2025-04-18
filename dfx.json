@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "ChainVerseNexus_backend": {
+      "main": "src/ChainVerseNexus_backend/main.mo",
+      "type": "motoko"
+    },
+    "ChainVerseNexus_frontend": {
+      "dependencies": [
+        "ChainVerseNexus_backend"
+      ],
+      "source": [
+        "src/ChainVerseNexus_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "ChainVerseNexus_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
