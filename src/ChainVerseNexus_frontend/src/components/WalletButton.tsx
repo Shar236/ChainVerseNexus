@@ -23,6 +23,6 @@ export function WalletButton() {
     );
   }
 
-  return <Button onClick={connectWallet}>Login</Button>;
+  return <Button onClick={connectWallet}>Connect ICP Wallet</Button>;
 }
 

@@ -1,11 +1,19 @@
-
 import { useWallet } from "@/contexts/WalletContext";
 import { NFTCard } from "@/components/ui/nft-card";
 import { Button } from "@/components/ui/button";
 import { Wallet } from "lucide-react";
+import { toast } from "sonner";
 
 export function MyNFTs() {
-  const { address, boughtNFTs, connectWallet } = useWallet();
+  const { address, boughtNFTs, connectWallet, sellNFT } = useWallet();
+
+  const handleSell = async (nftId: string) => {
+    const nftToSell = boughtNFTs.find(nft => nft.id === nftId);
+    if (!nftToSell) return;
+
+    await sellNFT(nftToSell);
+    toast.success(`You sold "${nftToSell.name}"!`);
+  };
 
   if (!address) {
     return (
@@ -38,11 +46,14 @@ export function MyNFTs() {
         {boughtNFTs.map((nft) => (
           <NFTCard
             key={nft.id}
+            id={nft.id}
             name={nft.name}
             creator={nft.creator}
             image={nft.image}
             price={nft.price}
             likes={nft.likes}
+            mode="sell"
+            onSell={() => handleSell(nft.id)}
           />
         ))}
       </div>

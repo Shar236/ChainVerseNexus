@@ -25,7 +25,7 @@ export function OverviewStats() {
       />
       <StatCard
         title="Avg. Gas Fee"
-        value="0.0042 ETH"
+        value="0.0042 NFT"
         icon={CreditCard}
         trend={{ value: 5.4, isPositive: false }}
       />

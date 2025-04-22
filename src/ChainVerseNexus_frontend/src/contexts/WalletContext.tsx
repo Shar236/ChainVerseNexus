@@ -28,6 +28,7 @@ interface WalletContextType {
   balance: string;
   boughtNFTs: NFT[];
   buyNFT: (nft: NFT) => Promise<void>;
+  sellNFT: (nft: Partial<NFT>) => Promise<void>;
 }
 
 const WalletContext = createContext<WalletContextType | null>(null);
@@ -60,10 +61,6 @@ export function WalletProvider({ children }: { children: ReactNode }) {
 
     const agent = new HttpAgent({ identity });
     setAgent(agent);
-
-    // if (process.env.DFX_NETWORK !== "ic") {
-    //   await agent.fetchRootKey(); // Required for local development
-    // }
 
     const savedNFTs = localStorage.getItem(`boughtNFTs_${principalId}`);
     if (savedNFTs) {
@@ -115,7 +112,6 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     }
 
     try {
-      // Placeholder for future ICP canister interaction
       toast.info("Transaction feature coming soon!");
     } catch (error) {
       console.error("Transaction failed:", error);
@@ -151,6 +147,25 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const sellNFT = async (nft: Partial<NFT>) => {
+    if (!address || !agent) {
+      toast.error("Please connect your wallet first");
+      return;
+    }
+
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        toast.success(`${nft.name} is now listed for sale.`);
+        setBoughtNFTs((prev) => {
+          const updated = prev.filter((item) => item.id !== nft.id);
+          localStorage.setItem(`boughtNFTs_${address}`, JSON.stringify(updated));
+          return updated;
+        });
+        resolve();
+      }, 1000);
+    });
+  };
+
   return (
     <WalletContext.Provider
       value={{
@@ -162,6 +177,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         balance,
         boughtNFTs,
         buyNFT,
+        sellNFT,
       }}
     >
       {children}
