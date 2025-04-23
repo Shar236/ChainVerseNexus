@@ -9,6 +9,9 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import NFTGallery from "./pages/NFTGallery";
 import ChainExplorer from "./pages/ChainExplorer";
+import PrivacyPolicy from "./pages/Privacypolicy";
+import TermsOfService from "./pages/TermsOfService";
+import Contact from "./pages/Contact";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +31,9 @@ const App = () => (
             <Route path="/chains" element={<ChainExplorer />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
+            <Route path ="/privacy" element={<PrivacyPolicy/>} />
+            <Route path ="/TermsOfService" element={<TermsOfService/>} />
+            <Route path ="/Contact" element={<Contact/>} />
           </Routes>
         </BrowserRouter>
       </WalletProvider>

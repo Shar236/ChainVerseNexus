@@ -6,6 +6,7 @@
   ],
   "compilerOptions": {
     "allowImportingTsExtensions": true,
+    "noEmit": true, // Added this line to resolve the issue
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
